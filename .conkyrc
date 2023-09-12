@@ -1,0 +1,150 @@
+# Modified antiX .conkyrc file
+# For conky editing help and commands visit = Casey's Conky Reference with Examples {http://www.ifxgroup.net/conky.htm}
+
+# set to yes if you want Conky to be forked in the background
+background yes
+
+short_units yes
+
+cpu_avg_samples 1
+net_avg_samples 1
+
+out_to_console no
+
+# X font when Xft is disabled, you can pick one with program xfontsel
+#font 7x12
+#font 6x10
+#font 7x13
+font 8x12
+#font 7x12
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+#xftfont gentium:size=12
+#ftfont DejaVu Sans:size=10
+xftfont DejaVu Sans:bold:size=9
+#xftfont DejaVu Sans:size=9
+
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window yes
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar
+own_window_type desktop
+
+# Text alpha when using Xft
+xftalpha 1.0
+
+#on_bottom no
+
+# Update interval in seconds
+update_interval 5
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 55
+maximum_width 300
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+#border_margin 10
+
+# border width
+border_width 2
+
+# Default colors and also border colors
+default_color white
+default_shade_color white
+default_outline_color white
+
+color ffffff
+color4 yellow
+color8 77ccff
+color9 5599cc
+
+# Text alignment, other possible values are commented
+# alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+
+gap_x 10
+gap_y 10
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# if_up_strictness link:  up | link | address
+if_up_strictness address
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# top name width
+top_name_width 10
+
+TEXT
+${alignc}$sysname $kernel ($machine)
+${alignc}${color8}${font DejaVu Sans:size=12}${time %H:%M:%S} ${font} ${color}
+${alignc}${time %a %d %b}
+${alignc}Uptime: $uptime
+${alignc}${exec disp=${DISPLAY#:}; disp=${disp%.[0-9]}; cat $HOME/.desktop-session/desktop-code.$disp 2>/dev/null}
+res:${alignr}${execi 60 xdpyinfo | sed -n -r "s/^\s*dimensions:.*\s([0-9]+x[0-9]+).*/\1/p"}
+CPU:${alignr}${cpu}% ${hwmon 5 temp 1}${hwmon 6 temp 1}°C
+${hwmon 5 temp 2}${hwmon 6 temp 2}°C ${alignr}${hwmon 5 temp 3}${hwmon 6 temp 3}°C
+${hwmon 6 fan 1}${hwmon 5 fan 1} RPM
+${cpubar cpu1 4,50} ${cpu cpu1}% ${alignr}${cpubar cpu2 4,50} ${cpu cpu2}%
+${cpubar cpu3 4,50} ${cpu cpu3}% ${alignr}${cpubar cpu4 4,50} ${cpu cpu4}%
+Freq:${alignr}${freq}
+${alignr}${cpugraph cpu0 30,170 5599cc 5599cc}
+Disk:${alignr}${diskio}
+Network:
+${alignr}${diskiograph 30,170 5599cc 5599cc}${if_up eth0}
+eth0 up: $alignr ${upspeed eth0}
+${alignr}${upspeedgraph   eth0 30,170 5599cc 5599cc}
+eth0 down: $alignr ${downspeed eth0}
+${alignr}${downspeedgraph eth0 30,170  5599cc 5599cc}${endif}${if_up eth1}
+eth1 up: $alignr ${upspeed eth1}
+${alignr}${upspeedgraph   eth1 30,170 5599cc 5599cc}
+eth1 down: $alignr ${downspeed eth1}
+${alignr}${downspeedgraph eth1 30,170  5599cc 5599cc}${endif}${if_up wlan0}
+wlan0 up: $alignr ${upspeed wlan0}
+${alignr}${upspeedgraph   wlan0 30,170 5599cc 5599cc}
+wlan0 down: $alignr ${downspeed wlan0}
+${alignr}${downspeedgraph wlan0 30,170 5599cc 5599cc}${endif}${if_up wlan1}
+wlan1 up: $alignr ${upspeed wlan1}
+${alignr} ${upspeedgraph   wlan1 30,170 5599cc 5599cc}
+wlan1 down: $alignr ${downspeed wlan1}
+${alignr}${downspeedgraph wlan1 30,170 5599cc 5599cc}${endif}
+${alignr}${color8}Free / Used / Total ${color}
+RAM:${alignr}$memfree / $mem / $memmax
+Swap:${alignr}$swapfree / $swap / $swapmax
+/ Root:${alignr}${fs_free /} / ${fs_used /} / ${fs_size /}
+/ Home:${alignr}${fs_free /home} / ${fs_used /home} / ${fs_size /home}
+/ Shared:${alignr}${fs_free /media/user/shared} / ${fs_used /media/user/shared} / ${fs_size /media/user/shared}
+Battery: ${battery_percent BAT0}% ${alignr}${color8}${battery_bar 8,70 BAT0} # You may need to change BAT0 to BAT1 or add the same line again if you have more then one battery.
+
+Name${tab 95 0}PID         CPU%         MEM%
+${color}${top name 1}${tab 90 0}${top pid 1}${tab 150 0}${top cpu 1}   ${top mem 1} ${top mem_res 1}
+${top name 2}${tab 90 0}${top pid 2}${tab 150 0}${top cpu 2}   ${top mem 2} ${top mem_res 2}
+${top name 3}${tab 90 0}${top pid 3}${tab 150 0}${top cpu 3}   ${top mem 3} ${top mem_res 3}
+${top name 4}${tab 90 0}${top pid 4}${tab 150 0}${top cpu 4}   ${top mem 4} ${top mem_res 4}
